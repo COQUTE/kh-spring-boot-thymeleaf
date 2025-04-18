@@ -36,3 +36,16 @@ updateBtn.addEventListener("click", e => {
 
   location.href = `/todo/update?todoNo=${todoNo}`;
 });
+
+// 삭제
+const deleteBtn = document.querySelector("#deleteBtn");
+
+deleteBtn.addEventListener("click", e => {
+
+  if(confirm("삭제하시겠습니까?")) {
+
+    const todoNo = e.target.dataset.todoNo;
+
+    location.href = `/todo/delete?todoNo=${todoNo}`;
+  }
+});
