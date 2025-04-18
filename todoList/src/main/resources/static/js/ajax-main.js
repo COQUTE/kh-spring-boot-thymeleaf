@@ -239,13 +239,13 @@ const selectTodo = (url) => {
     popupLayer.classList.remove("popup-hidden");
 
     // 각각의 span 태그에 값 넣어주기
-    popupTodoNo.innerText = todo['todoNo'];
-    popupTodoTitle.innerText = todo['todoTitle'];
-    popupComplete.innerText = todo['complete'];
-    popupRegDate.innerText = todo['regDate'];
+    popupTodoNo.innerText = todo.todoNo;
+    popupTodoTitle.innerText = todo.todoTitle;
+    popupComplete.innerText = todo.complete;
+    popupRegDate.innerText = todo.regDate;
 
     const contentSpan = document.createElement("span");
-    contentSpan.innerHTML = todo['todoContent'];
+    contentSpan.innerHTML = todo.todoContent;
 
     console.log(contentSpan);
 
