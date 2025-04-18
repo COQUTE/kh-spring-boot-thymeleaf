@@ -228,7 +228,38 @@ const selectTodo = (url) => {
   // 매개변수 url == "/ajax/detail?todoNo=1" 형태의 문자열
   
   // fetch요청 시 url 이용
+  fetch(url)
+  .then(resp => {
+    console.log(resp);
+
+    return resp.json();
+  })
+  .then(todo => {
+    // 팝업 레이어 띄우기
+    popupLayer.classList.remove("popup-hidden");
+
+    // 각각의 span 태그에 값 넣어주기
+    popupTodoNo.innerText = todo['todoNo'];
+    popupTodoTitle.innerText = todo['todoTitle'];
+    popupComplete.innerText = todo['complete'];
+    popupRegDate.innerText = todo['regDate'];
+
+    const contentSpan = document.createElement("span");
+    contentSpan.innerHTML = todo['todoContent'];
+
+    console.log(contentSpan);
+
+    popupTodoContent.append(contentSpan);
+
+    console.log(popupTodoContent);
+  })
 }
+
+popupClose.addEventListener("click", () => {
+
+  popupTodoContent.firstElementChild.remove();
+  popupLayer.classList.add("popup-hidden");
+});
 
 
 
