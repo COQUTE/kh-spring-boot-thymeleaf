@@ -37,7 +37,7 @@ const updateCancel = document.querySelector("#updateCancel");
 
 /*
 fetch() API
-비동기 요청을 수행하는 최신 Javascript API 중 하나.
+비동기 요청을s 수행하는 최신 Javascript API 중 하나.
 
 - Promise는 비동기 작업의 결과를 처리하는 방법 중 하나
 -> 어떤 결과가 올지는 모르지만 반드시 결과를 보내주겠다는 약속.
@@ -229,11 +229,7 @@ const selectTodo = (url) => {
   
   // fetch요청 시 url 이용
   fetch(url)
-  .then(resp => {
-    console.log(resp);
-
-    return resp.json();
-  })
+  .then(resp => resp.json())
   .then(todo => {
     // 팝업 레이어 띄우기
     popupLayer.classList.remove("popup-hidden");
@@ -247,11 +243,7 @@ const selectTodo = (url) => {
     const contentSpan = document.createElement("span");
     contentSpan.innerHTML = todo.todoContent;
 
-    console.log(contentSpan);
-
     popupTodoContent.append(contentSpan);
-
-    console.log(popupTodoContent);
   })
 }
 
@@ -261,7 +253,125 @@ popupClose.addEventListener("click", () => {
   popupLayer.classList.add("popup-hidden");
 });
 
+// 비동기 할 일 완료 여부 변경하는 함수
+changeComplete.addEventListener("click", () => {
 
+  const param = {
+    "todoNo" : popupTodoNo.innerText,
+    "complete" : (popupComplete.innerText === 'Y') ? 'N' : 'Y'
+  }
+
+  fetch("/ajax/changeComplete", {
+    method: "put",
+    headers: {"Content-Type" : "application/json"},
+    body: JSON.stringify(param)
+  })
+  .then(resp => resp.text())
+  .then(result => {
+    
+    if(result > 0) {
+      // 완료여부 수정에 성공했다면
+      
+      // Y <-> N
+      popupComplete.innerText = param.complete; 
+      
+      // 기존 todoList 다시 불러와서 적용
+      selectTodoList();
+      getCompleteCount();
+
+      return;
+    }
+
+    alert("완료여부 수정 실패..");
+
+  })
+});
+
+// 비동기 할 일 수정하는 함수
+updateView.addEventListener("click", () => {
+
+  updateTitle.value = popupTodoTitle.innerText;
+  updateContent.value = popupTodoContent.firstElementChild.innerText;
+
+  updateLayer.classList.remove("popup-hidden");
+});
+
+updateBtn.addEventListener("click", () => {
+
+  if(updateTitle.value.trim().length === 0 || updateContent.value.trim().length === 0) {
+    alert("제목이나 내용은 비어있을 수 없습니다!");
+    return;
+  }
+
+  const param = {
+    "todoNo" : popupTodoNo.innerText,
+    "todoTitle" : updateTitle.value,
+    "todoContent" : updateContent.value
+  };
+
+  fetch("/ajax/update", {
+    method: "put",
+    headers: {"Content-Type" : "application/json"} ,
+    body: JSON.stringify(param)
+  })
+  .then(resp => resp.text())
+  .then(result => {
+
+    if(result > 0) {
+
+      updateTitle.value = "";
+      updateContent.value = "";
+    
+      updateLayer.classList.add("popup-hidden");
+
+      popupTodoContent.firstElementChild.remove();
+      selectTodo("/ajax/detail?todoNo=" + param.todoNo);
+      selectTodoList();
+
+      alert("수정 성공!!!");
+      return;
+    }
+
+    alert("수정 실패");
+  });
+});
+
+updateCancel.addEventListener("click", () => {
+
+  updateTitle.value = "";
+  updateContent.value = "";
+
+  updateLayer.classList.add("popup-hidden");
+});
+
+// 비동기 할 일 삭제하는 함수
+deleteBtn.addEventListener("click", () => {
+
+  if(!confirm("정말 삭제하시겠습니까?")) return;
+
+  const todoNo = popupTodoNo.innerText;
+
+  fetch(`/ajax/delete/${todoNo}`, {method: "delete"})
+  .then(resp => resp.text())
+  .then(result => {
+
+    if(result > 0) { // 삭제 성공시
+      
+      getTotalCount();
+      getCompleteCount();
+      selectTodoList();
+      
+      popupTodoContent.firstElementChild.remove();
+      popupLayer.classList.add("popup-hidden");
+
+      alert("삭제 성공!!!");
+
+      return;
+    }
+
+    alert("삭제 실패..");
+  });
+});
 
 getTotalCount();
 getCompleteCount();
