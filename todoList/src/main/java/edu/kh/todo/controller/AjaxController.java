@@ -114,18 +114,23 @@ public class AjaxController {
 		// -> HttpMessageConvertor가 JSON 형태로 변환하여 반환
 	}
 	
-	@ResponseBody
+	// 할 일 상세 조회
+	@ResponseBody // 비동기 요청을 보낸 곳으로 데이터(반환값) 돌려보냄
 	@GetMapping("detail")
 	public Todo selectTodo(@RequestParam("todoNo") int todoNo) {
 		return service.todoDetail(todoNo);
+		// return 자료형 : Todo(dto)
+		// -> HttpMessageConvertor가 String(JSON) 형태로 변환해서 반환
 	}
 	
+	// 완료 여부 변경(PUT)
 	@ResponseBody
 	@PutMapping("changeComplete")
 	public int changeComplete(@RequestBody Todo todo) {
 		return service.chageComplete(todo);
 	}
 	
+	// 할 일 수정(PUT)
 	@ResponseBody
 	@PutMapping("update")
 	public int todoUpdate(@RequestBody Todo todo) {
