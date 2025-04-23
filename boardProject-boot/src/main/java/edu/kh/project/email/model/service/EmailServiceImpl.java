@@ -112,4 +112,9 @@ public class EmailServiceImpl implements EmailService {
 	private String createAuthKey() {
 		return UUID.randomUUID().toString().substring(0, 6);
 	}
+	
+	@Override
+	public int checkAuthKey(Map<String, String> map) {
+		return mapper.checkAuthKey(map);
+	}
 }

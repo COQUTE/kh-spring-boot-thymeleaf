@@ -14,9 +14,17 @@
   	WHERE EMAIL = #{email}
   </update>
   
+  <!-- 인증 번호 삽입 -->
   <insert id="insertAuthKey" parameterType="Map">
   	INSERT INTO "TB_AUTH_KEY"
   	VALUES(SEQ_KEY_NO.NEXTVAL, #{email}, #{authKey}, DEFAULT)
   </insert>
+  
+  <!-- 이메일 + 인증번호 확인 -->
+  <select id="checkAuthKey" parameterType="Map">
+  	SELECT COUNT(*)
+  	FROM "TB_AUTH_KEY"
+  	WHERE EMAIL = #{email} AND AUTH_KEY = #{authKey}
+  </select>
   
 </mapper>
