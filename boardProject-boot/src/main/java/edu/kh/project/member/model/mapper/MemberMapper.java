@@ -31,4 +31,10 @@ public interface MemberMapper {
 	 */
 	int signup(Member inputMember);
 
+	/** 아이디 찾기
+	 * @param inputMember
+	 * @return
+	 */
+	String findId(Member inputMember);
+
 }

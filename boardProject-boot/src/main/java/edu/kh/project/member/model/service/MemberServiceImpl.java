@@ -110,4 +110,9 @@ public class MemberServiceImpl implements MemberService {
 		
 		return mapper.signup(inputMember);
 	}
+
+	@Override
+	public String findId(Member inputMember) {
+		return mapper.findId(inputMember);
+	}
 }

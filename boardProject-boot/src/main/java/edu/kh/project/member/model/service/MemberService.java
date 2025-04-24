@@ -29,4 +29,10 @@ public interface MemberService {
 	 */
 	int signup(Member inputMember, String[] memberAddress);
 
+	/** 아이디 찾기 서비스
+	 * @param inputMember (memberNickname, memberTel)
+	 * @return
+	 */
+	String findId(Member inputMember);
+
 }

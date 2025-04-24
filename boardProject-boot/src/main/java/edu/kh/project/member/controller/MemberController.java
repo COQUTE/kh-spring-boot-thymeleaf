@@ -1,12 +1,11 @@
 package edu.kh.project.member.controller;
 
-import java.util.Arrays;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -172,4 +171,27 @@ public class MemberController {
 		// 실패 -> redirect:signup (상대경로)
 		//		현재 주소 / member/signup (GET 방식 요청)
 	}
+	
+	/** 아이디 찾기 페이지
+	 * @return
+	 */
+	@GetMapping("findId")
+	public String findId() {
+		return "member/findId";
+	}
+	
+	@ResponseBody
+	@PostMapping("findId")
+	public String findId(@RequestBody Member inputMember) {
+		return service.findId(inputMember);
+	}
+	
+	/** 비밀번호 찾기 페이지
+	 * @return
+	 */
+	@GetMapping("findPw")
+	public String findPw() {
+		return "member/findPw";
+	}
+	
 }

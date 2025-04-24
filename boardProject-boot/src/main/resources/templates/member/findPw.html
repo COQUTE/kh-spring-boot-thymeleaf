@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Find PW</title>
+
+  <!-- 공용 css/js 추가 -->
+  <th:block th:replace="~{common/common}"></th:block>
+
+  <!-- find 전용 CSS -->
+  <link rel="stylesheet" href="/css/member/find-style.css">
+</head>
+<body>
+
+  <main>
+
+    <!-- 헤더 추가 -->
+    <th:block th:replace="~{common/header}"></th:block>
+
+    <section class="find-content">
+
+      <!-- 사이드 메뉴(왼쪽) 추가 -->
+      <th:block th:replace="~{member/sideMenu}"></th:block>
+
+      <!-- 마이페이지 본문(오른쪽) -->
+      <section class="find-main">
+
+        <h1 class="find-title">비밀번호 찾기</h1>
+        <span class="find-subject">
+          닉네임과 전화번호와 이메일을 입력하세요.
+        </span>
+
+        <form action="checkId" method="POST" name="findFrm" id="checkId">
+
+          <div class="find-row">
+              <label>닉네임</label>
+              <input type="text" name="memberNickname" id="memberNickname" maxlength="30" >              
+          </div>
+
+          <div class="find-row">
+              <label>전화번호</label>
+              <input type="text" name="memberTel" id="memberTel" maxlength="30">              
+          </div>
+
+          <div class="find-row">
+            <label>이메일</label>
+            <input type="email" name="memberEmail" id="memberEmail" maxlength="30">              
+          </div>
+
+          <button class="find-submit" type="button">기존 아이디 확인</button>
+
+      </form>
+
+
+      </section>
+
+    </section>
+
+  </main>
+
+   <!-- 푸터 추가 -->
+   <th:block th:replace="~{common/footer}"></th:block>
+  
+   <script src="/js/member/findMember.js"></script>
+</body>
+</html>

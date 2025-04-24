@@ -104,7 +104,7 @@ if(updateInfo != null) {
 /* 다음 API 활용 */
 
 const searchAddress = document.querySelector("#searchAddress");
-searchAddress.addEventListener("click", execDaumPostcode);
+if(searchAddress) searchAddress.addEventListener("click", execDaumPostcode);
 
 function execDaumPostcode() {
     new daum.Postcode({
@@ -131,7 +131,6 @@ function execDaumPostcode() {
     }).open();
   };
 
-
 // ------------------------------------------
 
 /* 비밀번호 수정 */
@@ -139,7 +138,8 @@ function execDaumPostcode() {
 // 비밀번호 변경 form 태그
 const changePw = document.querySelector("#changePw");
 
-if(changePw != null) {
+// 현재 페이지에서 changePw 요소가 존재할 때
+if(changePw/* != null*/) {
     // 제출 되었을 때
     changePw.addEventListener("submit", e => {
 
