@@ -35,4 +35,10 @@ public interface MemberService {
 	 */
 	String findId(Member inputMember);
 
+	/** 비밀번호 찾기 서비스
+	 * @param inputMember
+	 * @return
+	 */
+	int findPw(Member inputMember);
+
 }

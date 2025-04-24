@@ -37,4 +37,10 @@ public interface MemberMapper {
 	 */
 	String findId(Member inputMember);
 
+	/** 비밀번호 찾기
+	 * @param inputMember
+	 * @return
+	 */
+	int findPw(Member inputMember);
+
 }

@@ -23,15 +23,15 @@
       <!-- 사이드 메뉴(왼쪽) 추가 -->
       <th:block th:replace="~{member/sideMenu}"></th:block>
 
-      <!-- 마이페이지 본문(오른쪽) -->
+      <!-- 찾기페이지 본문(오른쪽) -->
       <section class="find-main">
 
         <h1 class="find-title">비밀번호 찾기</h1>
         <span class="find-subject">
-          닉네임과 전화번호와 이메일을 입력하세요.
+          닉네임, 전화번호, 이메일을 입력하세요.
         </span>
 
-        <form action="checkId" method="POST" name="findFrm" id="checkId">
+        <form action="findPw" method="POST" name="findFrm" id="findPw">
 
           <div class="find-row">
               <label>닉네임</label>
@@ -48,10 +48,24 @@
             <input type="email" name="memberEmail" id="memberEmail" maxlength="30">              
           </div>
 
-          <button class="find-submit" type="button">기존 아이디 확인</button>
+          <button class="find-submit" type="button">기존 비밀번호 확인</button>
 
       </form>
+      <form action="findPw" method="PUT" name="findFrm" id="inputPw" class="hidden">
+        
+        <div class="find-row">
+          <label>비밀번호 입력</label>
+          <input type="password" name="newPw" id="newPw" maxlength="30">              
+        </div>
 
+        <div class="find-row">
+          <label>비밀번호 확인</label>
+          <input type="password" name="pwConfirm" id="pwConfirm" maxlength="30">              
+        </div>
+        
+        <button class="find-submit">비밀번호 변경</button>
+
+      </form>
 
       </section>
 

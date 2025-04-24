@@ -1,14 +1,18 @@
 package edu.kh.project.member.controller;
 
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.SessionAttribute;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
@@ -194,4 +198,41 @@ public class MemberController {
 		return "member/findPw";
 	}
 	
+	@ResponseBody
+	@PostMapping("findPw")
+	public int findPw(@RequestBody Member inputMember) {
+		return service.findPw(inputMember);
+	}
+	
+//	/** 비밀번호 변경
+//	 * @param paramMap : 모든 파라미터(요청 데이터)를 맵으로 저장
+//	 * @param loginMember : 세션에 등록된 현재 로그인한 회원 정보
+//	 * @param ra
+//	 * @return
+//	 */
+//	@PutMapping("findPw")
+//	public String chagePw(@RequestParam Map<String, String> paramMap,
+//						  RedirectAttributes ra) {
+//		
+//		// 현재 + 새 비번 + 회원번호를 서비스로 전달
+//		int result = service.changePw(paramMap, memberNo);
+//		
+//		String path = null;
+//		String message = null;
+//		
+//		if(result > 0) {
+//			// 변경 성공 시
+//			message = "비밀번호가 변경되었습니다!";
+//			path = "/";
+//			
+//		} else {
+//			// 변경 실패 시
+//			message = "비밀번호 변경에 실패했습니다..";
+//			path = "/member/findPw";
+//		}
+//		
+//		ra.addFlashAttribute("message", message);
+//		
+//		return "redirect:" + path;
+//	}
 }

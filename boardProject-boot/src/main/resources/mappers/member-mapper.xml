@@ -42,4 +42,12 @@
 		AND MEMBER_TEL = #{memberTel}
 	</select>
 	
+	<!-- 비밀번호 찾기 -->
+	<select id="findPw" parameterType="Member" resultType="_int">
+		SELECT COUNT(*)
+		FROM "MEMBER"
+		WHERE MEMBER_NICKNAME = #{memberNickname}
+		AND MEMBER_TEL = #{memberTel} AND MEMBER_EMAIL = #{memberEmail}
+	</select>
+	
 </mapper>

@@ -41,19 +41,19 @@
 }
 
 /* ********************************* */
-/* 마이페이지 공통 */
+/* 찾기페이지 공통 */
 .find-main{
   width: 75%;
   padding: 0 50px;
 }
 
-/* 마이페이지 제목 */
+/* 찾기페이지 제목 */
 .find-title{
   margin-bottom: 10px;
   font-size: 30px;
 }
 
-/* 마이페이지 부제 */
+/* 찾기페이지 부제 */
 .find-subject{
   display: block;
   margin-bottom: 30px;
@@ -62,7 +62,7 @@
   letter-spacing: -1px;
 }
 
-/* 마이페이지 행 단위 스타일 지정 */
+/* 찾기페이지 행 단위 스타일 지정 */
 .find-row{
   width: 500px;
   height: 50px;
@@ -96,6 +96,7 @@
   border: none;
   outline: none;
   font-weight: normal;
+  background-color: transparent;
 }
 
 /* 제출 버튼 */
@@ -114,7 +115,7 @@
 }
 
 /* form태그 */
-form[name='findFrm']{
+form[name='findFrm']:not(.hidden){
   display: flex;
   justify-content: center;
   align-items: center;
@@ -126,103 +127,6 @@ form[name='findFrm']{
   border-bottom-color: #455ba8;
 }
 
-
-/* ******************************************* */
-/* 내 정보 페이지 전용 스타일 */
-
-.info-title{
-  border: none;
-}
-
-.info-address{
-  margin: 0;
-}
-
-.info-address > button{
-  width: 30%;
-  height: 70%;
-
-  font-size: 14px;
-  font-weight: normal;
-
-  background-color: white;
-  border : 1px solid gray;
-  cursor: pointer;
-}
-
-/* *********비밀번호 변경 화면*********** */
-.find-row > input[type='password']{
-  width: 70%;
-} 
-
-/* **********회원 탈퇴 약관********** */
-.secession-terms{
-  width: 500px;
-  height: 300px;
-  border: 1px solid black;
-  
-  overflow: auto;
-  /* 내용이 요소를 벗어나는 경우 방향에 맞춰서 자동으로 스크롤 추가 */
-
-  font-family: sans-serif; /* 돋움체 */
-  font-size: 14px;
-}
-
-/* ************* 프로필 화면 ************* */
-.profile-image-area{
-  width: 150px;
-  height: 150px;
-  border: 3px solid #ccc;
-  border-radius: 50%;
-
-  position: relative;
-
-  overflow: hidden;
-  display: flex;
-  justify-content: center;
-  align-content: center;
-}
-
-#profileImage{
-  height: 100%;
-}
-
-/* 삭제버튼 */
-form[name='findFrm']{position: relative;}
-
-#deleteImage{
-  position: absolute;
-  top: 0px;
-  right: 240px;
-  cursor: pointer;
-}
-
-/* 이미지 버튼 영역 */
-.profile-btn-area{
-  width: 230px;
-  margin: 20px 0;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.profile-btn-area > *{
-  width: 110px;
-  height: 33px;
-  padding: 5px 10px;
-
-  border: 1px solid black;
-  background-color: white;
-  font-size: 14px;
-  cursor: pointer;
-  text-align: center;
-}
-
-#imageInput{ display: none;}
-
-.profile-btn-area > button{
-  background-color: #455ba8;
-  color : white;
-  margin-left: 2px;
+.hidden {
+  display: none;
 }
