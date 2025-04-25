@@ -46,5 +46,11 @@ public interface MyPageMapper {
 	 * @return
 	 */
 	public List<UploadFile> fileList(int memberNo);
+
+	/** 프로필 이미지 변경
+	 * @param member
+	 * @return
+	 */
+	public int profile(Member member);
 	
 }

@@ -48,4 +48,12 @@
   	WHERE "UPLOAD_FILE".MEMBER_NO = ${memberNo}
   	ORDER BY FILE_NO DESC
   </select>
+  
+  <!-- 프로필 이미지 변경 -->
+  <update id="profile" parameterType="Member">
+  	UPDATE "MEMBER"
+  	SET PROFILE_IMG = #{profileImg}
+  	WHERE MEMBER_NO = ${memberNo}
+  </update>
+  
 </mapper>
