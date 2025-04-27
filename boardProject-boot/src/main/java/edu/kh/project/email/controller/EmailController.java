@@ -10,11 +10,9 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import edu.kh.project.email.model.service.EmailService;
 import lombok.RequiredArgsConstructor;
-import lombok.extern.slf4j.Slf4j;
 
 @Controller
 @RequestMapping("email")
-@Slf4j
 @RequiredArgsConstructor
 public class EmailController {
 	

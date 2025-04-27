@@ -37,8 +37,15 @@ public interface MemberService {
 
 	/** 비밀번호 찾기 서비스
 	 * @param inputMember
+	 * @return memberNo
+	 */
+	Integer findPw(Member inputMember);
+
+	/** 비밀번호 변경 서비스
+	 * @param newPw
+	 * @param memberNo
 	 * @return
 	 */
-	int findPw(Member inputMember);
+	int changePw(String newPw, int memberNo);
 
 }

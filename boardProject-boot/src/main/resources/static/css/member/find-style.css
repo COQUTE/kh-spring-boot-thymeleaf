@@ -127,6 +127,10 @@ form[name='findFrm']:not(.hidden){
   border-bottom-color: #455ba8;
 }
 
+/* 메세지 색상 지정 */
+.confirm{ color : green; }
+.error{ color : red; }
+
 .hidden {
   display: none;
 }

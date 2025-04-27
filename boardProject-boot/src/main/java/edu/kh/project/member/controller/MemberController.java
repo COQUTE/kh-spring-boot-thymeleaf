@@ -1,7 +1,5 @@
 package edu.kh.project.member.controller;
 
-import java.util.Map;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -20,7 +18,9 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import edu.kh.project.member.model.dto.Member;
 import edu.kh.project.member.model.service.MemberService;
 import jakarta.servlet.http.Cookie;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
 import lombok.extern.slf4j.Slf4j;
 
 @SessionAttributes({"loginMember"})
@@ -198,41 +198,40 @@ public class MemberController {
 		return "member/findPw";
 	}
 	
+	/** 닉네임, 이메일, 전화번호로 회원번호 찾기
+	 * @param inputMember : 닉네임, 이메일, 전화번호
+	 * @return 1 : 회원 있음, 0 : 회원 없음
+	 */
 	@ResponseBody
 	@PostMapping("findPw")
-	public int findPw(@RequestBody Member inputMember) {
-		return service.findPw(inputMember);
+	public int findPw(@RequestBody Member inputMember, HttpServletRequest req) {
+		
+		Integer memberNo = service.findPw(inputMember);
+		
+		log.debug("memberNo : " + memberNo);
+		
+		// 해당하는 회원이 있을 경우
+		if(memberNo != null) {
+			HttpSession session = req.getSession();
+			
+			session.setAttribute("memberNo", memberNo);
+			
+			return 1;
+		}
+		
+		// 해당하는 회원이 없을 경우
+		return 0;
 	}
 	
-//	/** 비밀번호 변경
-//	 * @param paramMap : 모든 파라미터(요청 데이터)를 맵으로 저장
-//	 * @param loginMember : 세션에 등록된 현재 로그인한 회원 정보
-//	 * @param ra
-//	 * @return
-//	 */
-//	@PutMapping("findPw")
-//	public String chagePw(@RequestParam Map<String, String> paramMap,
-//						  RedirectAttributes ra) {
-//		
-//		// 현재 + 새 비번 + 회원번호를 서비스로 전달
-//		int result = service.changePw(paramMap, memberNo);
-//		
-//		String path = null;
-//		String message = null;
-//		
-//		if(result > 0) {
-//			// 변경 성공 시
-//			message = "비밀번호가 변경되었습니다!";
-//			path = "/";
-//			
-//		} else {
-//			// 변경 실패 시
-//			message = "비밀번호 변경에 실패했습니다..";
-//			path = "/member/findPw";
-//		}
-//		
-//		ra.addFlashAttribute("message", message);
-//		
-//		return "redirect:" + path;
-//	}
+	/** 비밀번호 변경
+	 * @param paramMap : 모든 파라미터(요청 데이터)를 맵으로 저장
+	 * @param loginMember : 세션에 등록된 현재 로그인한 회원 정보
+	 * @param ra
+	 * @return
+	 */
+	@ResponseBody
+	@PutMapping("findPw")
+	public int chagePw(@RequestBody String newPw, @SessionAttribute("memberNo") int memberNo) {
+		return service.changePw(newPw, memberNo);
+	}
 }

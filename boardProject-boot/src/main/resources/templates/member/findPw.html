@@ -51,8 +51,8 @@
           <button class="find-submit" type="button">기존 비밀번호 확인</button>
 
       </form>
-      <form action="findPw" method="PUT" name="findFrm" id="inputPw" class="hidden">
-        
+      <form action="findPw" method="POST" name="findFrm" id="inputPw" class="hidden">
+
         <div class="find-row">
           <label>비밀번호 입력</label>
           <input type="password" name="newPw" id="newPw" maxlength="30">              
@@ -60,7 +60,7 @@
 
         <div class="find-row">
           <label>비밀번호 확인</label>
-          <input type="password" name="pwConfirm" id="pwConfirm" maxlength="30">              
+          <input type="password" name="newPwConfirm" id="newPwConfirm" maxlength="30">              
         </div>
         
         <button class="find-submit">비밀번호 변경</button>

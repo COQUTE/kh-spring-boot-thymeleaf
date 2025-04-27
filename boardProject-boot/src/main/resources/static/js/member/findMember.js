@@ -82,6 +82,8 @@ if(findPw) {
     });
     const result = await resp.text();
 
+    console.log(result)
+
     if(result == 0) {
       alert("존재하지 않는 회원입니다.");
       return;
@@ -95,5 +97,51 @@ if(findPw) {
 
 if(inputPw) {
 
-  
+  inputPw.addEventListener("submit", async e => {
+
+    e.preventDefault();
+
+    const newPw = document.querySelector("#newPw");
+    const newPwConfirm = document.querySelector("#newPwConfirm");
+
+    // - 값을 모두 입력했는가
+
+    let str; // undefined 상태
+    if( newPw.value.trim().length == 0 ) str = "새 비밀번호를 입력해주세요";
+    else if( newPwConfirm.value.trim().length == 0 ) str = "새 비밀번호 확인을 입력해주세요";
+
+    if(str != undefined) { // str에 값이 대입됨 == if 중 하나 실행됨
+        alert(str);
+        return;
+    }
+
+    // 새 비밀번호 정규식
+    const regExp = /^[a-zA-Z0-9!@#_-]{6,20}$/;
+
+    if( !regExp.test(newPw.value) ) {
+        alert("새 비밀번호가 유효하지 않습니다");
+        return;
+    }
+
+    // 새 비밀번호 == 새 비밀번호 확인
+    if( newPw.value != newPwConfirm.value ) {
+        alert("새 비밀번호가 일치하지 않습니다");
+        return;
+    }
+
+    const resp = await fetch('findPw', {
+      method: 'PUT',
+      headers: {'Content-Type': 'application/json'},
+      body: newPw.value
+    })
+    const result = await resp.text();
+
+    if(result > 0) {
+      alert("비밀번호가 변경되었습니다! 다시 로그인해주세요.");
+      location.href = "/";
+      return;
+    }
+
+    alert("비밀번호 변경실패..");
+  });
 }

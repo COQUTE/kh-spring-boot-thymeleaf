@@ -1,5 +1,7 @@
 package edu.kh.project.member.model.mapper;
 
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Mapper;
 
 import edu.kh.project.member.model.dto.Member;
@@ -39,8 +41,14 @@ public interface MemberMapper {
 
 	/** 비밀번호 찾기
 	 * @param inputMember
+	 * @return memberNo
+	 */
+	Integer findPw(Member inputMember);
+
+	/** 비밀번호 변경
+	 * @param map
 	 * @return
 	 */
-	int findPw(Member inputMember);
+	int changePw(Member member);
 
 }

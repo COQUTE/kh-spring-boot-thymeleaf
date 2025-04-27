@@ -43,11 +43,18 @@
 	</select>
 	
 	<!-- 비밀번호 찾기 -->
-	<select id="findPw" parameterType="Member" resultType="_int">
-		SELECT COUNT(*)
+	<select id="findPw" parameterType="Member" resultType="integer">
+		SELECT MEMBER_NO
 		FROM "MEMBER"
 		WHERE MEMBER_NICKNAME = #{memberNickname}
 		AND MEMBER_TEL = #{memberTel} AND MEMBER_EMAIL = #{memberEmail}
 	</select>
+	
+	<!-- 비밀번호 변경 -->
+	<update id="changePw" parameterType="Member">
+		UPDATE "MEMBER"
+	  	SET MEMBER_PW = #{memberPw}
+	  	WHERE MEMBER_NO = ${memberNo}
+	</update>
 	
 </mapper>

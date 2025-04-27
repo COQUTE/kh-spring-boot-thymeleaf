@@ -117,7 +117,22 @@ public class MemberServiceImpl implements MemberService {
 	}
 	
 	@Override
-	public int findPw(Member inputMember) {
+	public Integer findPw(Member inputMember) {
 		return mapper.findPw(inputMember);
+	}
+	
+	@Override
+	public int changePw(String newPw, int memberNo) {
+		
+		String encPw = bcrypt.encode(newPw);
+		
+		Member member = Member.builder()
+						.memberPw(encPw)
+						.memberNo(memberNo)
+						.build();
+		
+		log.debug("member : " + member);
+		
+		return mapper.changePw(member);
 	}
 }
