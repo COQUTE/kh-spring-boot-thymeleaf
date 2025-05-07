@@ -53,3 +53,17 @@ document.querySelector("#boardLike").addEventListener("click", async e => {
   // 7. 게시글 좋아요 수 수정
   e.target.nextElementSibling.innerText = count;
 });
+
+// ---------- 게시글 수정 버튼 ----------
+
+const updateBtn = document.querySelector("#updateBtn");
+
+if(updateBtn != null) { // 수정 버튼 존재 시
+
+  updateBtn.addEventListener("click", () => {
+    // get 방식
+    // 현재 : /board/1/2004?cp=1
+    // 목표 : /editBoard/1/2001/update?cp=1
+    location.href = location.pathname.replace('board', 'editBoard') + "/update" + location.search;
+  });
+}

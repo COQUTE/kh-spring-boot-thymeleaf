@@ -96,7 +96,7 @@ public class BoardController {
 	public String boardDetail(@PathVariable("boardCode") int boardCode,
 							  @PathVariable("boardNo") int boardNo,
 							  @SessionAttribute(value="loginMember", required = false) Member loginMember,
-							  Model model, RedirectAttributes ra,
+							  @RequestParam("cp") int cp, Model model, RedirectAttributes ra,
 							  HttpServletRequest req, // 요청에 담긴 쿠키 얻어오기
 							  HttpServletResponse resp // 새로운 쿠키 만들어서 응답하기
 							  ) {
@@ -120,7 +120,7 @@ public class BoardController {
 		
 		// 조회 결과가 없는 경우
 		if(board == null) {
-			path = "redirect:/board/" + boardCode; // 목록 재요청
+			path = "redirect:/board/" + boardCode + "?cp=" + cp; // 목록 재요청
 			ra.addFlashAttribute("message", "게시글이 존재하지 않습니다.");
 			
 		} else {
