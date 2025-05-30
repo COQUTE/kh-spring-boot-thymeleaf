@@ -117,4 +117,88 @@ public class AdminController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
     }
+
+    // ------------------ 복구 ------------------
+
+    /** 탈퇴한 회원 목록 조회
+     * @return 
+     */
+    @GetMapping("withdrawnMemberList")
+    public ResponseEntity<Object> selectWithdrawnMemberList() {
+        // 성공 시 List<Member> 반환, 실패 시 String 반환 -> Object
+        try {
+            List<Member> withdrawnMemberList = service.selectWithdrawnMemberList();
+            return ResponseEntity.status(HttpStatus.OK).body(withdrawnMemberList);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("탈퇴한 회원 목록 조회 중 문제 발생 : " + e.getMessage());
+        }
+    }
+
+    /** 삭제된 게시글 목록 조회
+     * @return 
+     */
+    @GetMapping("deleteBoardList")
+    public ResponseEntity<Object> selectDeleteBoardList() {
+        // 성공 시 List<Board> 반환, 실패 시 String 반환 -> Object
+        try {
+            List<Board> deleteBoardList = service.selectDeleteBoardList();
+            return ResponseEntity.status(HttpStatus.OK).body(deleteBoardList);
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("삭제된 게시글 목록 조회 중 문제 발생 : " + e.getMessage());
+        }
+    }
+
+    /** 탈퇴 회원 복구
+     * @param member 
+     * @return
+     */
+    @PutMapping("restoreMember")
+    public ResponseEntity<Object> restoreMember(@RequestBody Member member) {
+        try {
+
+            int result = service.restoreMember(member.getMemberNo());
+
+            if(result > 0) {
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(member.getMemberNo() + " 회원 복구 완료");
+            } else {
+                // BAD_REQUEST : 400 -> 요청구문이 잘못되었거나 유효하지 않음.
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("유효하지 않은 회원 번호 : " + member.getMemberNo());
+            }
+
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("탈퇴 회원 복구 중 문제 발생 : " + e.getMessage());
+        }
+    }
+
+    /** 삭제된 게시글 복구
+     * @param board
+     * @return
+     */
+    @PutMapping("restoreBoard")
+    public ResponseEntity<Object> restoreBoard(@RequestBody Board board) {
+        try {
+            
+            int result = service.restoreBoard(board.getBoardNo());
+            
+            if(result > 0) {
+                return ResponseEntity.status(HttpStatus.OK)
+                        .body(board.getBoardNo() + " 게시글 복구 완료");
+            } else {
+                // BAD_REQUEST : 400 -> 요청구문이 잘못되었거나 유효하지 않음.
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                        .body("유효하지 않은 게시글 번호 : " + board.getBoardNo());
+            }
+            
+        } catch (Exception e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR)
+                    .body("삭제된 게시글 복구 중 문제 발생 : " + e.getMessage());
+        }
+    }
 }

@@ -29,4 +29,25 @@ public interface AdminService {
      */
     Board maxCommentCount();
 
+    /** 탈퇴한 회원 목록 조회
+     * @return
+     */
+    List<Member> selectWithdrawnMemberList();
+
+    /** 삭제된 게시글 목록 조회
+     * @return
+     */
+    List<Board> selectDeleteBoardList();
+
+    /** 탈퇴 회원 복구
+     * @param memberNo 
+     * @return
+     */
+    int restoreMember(int memberNo);
+
+    /** 삭제된 게시글 복구
+     * @param boardNo 
+     * @return
+     */
+    int restoreBoard(int boardNo);
 }

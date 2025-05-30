@@ -18,4 +18,12 @@ public interface AdminMapper {
     Board maxLikeCount();
 
     Board maxCommentCount();
+
+    List<Member> selectWithdrawnMemberList();
+
+    List<Board> selectDeleteBoardList();
+    
+    int restoreMember(int memberNo);
+
+    int restoreBoard(int boardNo);
 }

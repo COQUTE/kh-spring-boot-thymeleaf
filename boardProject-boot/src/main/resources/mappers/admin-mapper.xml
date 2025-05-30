@@ -57,4 +57,34 @@
         FETCH FIRST 1 ROWS ONLY
     </select>
 
+    <select id="selectWithdrawnMemberList">
+        SELECT MEMBER_NO, MEMBER_EMAIL, MEMBER_NICKNAME
+        FROM MEMBER
+        WHERE MEMBER_DEL_FL = 'Y'
+        ORDER BY MEMBER_NO DESC
+    </select>
+
+    <select id="selectDeleteBoardList">
+        SELECT BOARD_NO, BOARD_TITLE, BOARD_NAME, MEMBER_NICKNAME
+        FROM BOARD
+        JOIN MEMBER USING(MEMBER_NO)
+        JOIN BOARD_TYPE USING(BOARD_CODE)
+        WHERE BOARD_DEL_FL = 'Y'
+        ORDER BY BOARD_NO DESC
+    </select>
+
+    <update id="restoreMember">
+        UPDATE MEMBER
+        SET MEMBER_DEL_FL = 'N'
+        WHERE MEMBER_NO = ${memberNo}
+        AND MEMBER_DEL_FL = 'Y'
+    </update>
+
+    <update id="restoreBoard">
+        UPDATE BOARD
+        SET BOARD_DEL_FL = 'N'
+        WHERE BOARD_NO = ${boardNo}
+          AND BOARD_DEL_FL = 'Y'
+    </update>
+
 </mapper>

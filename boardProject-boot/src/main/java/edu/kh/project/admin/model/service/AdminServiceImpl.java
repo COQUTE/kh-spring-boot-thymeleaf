@@ -60,4 +60,28 @@ public class AdminServiceImpl implements AdminService {
     public Board maxCommentCount() {
         return mapper.maxCommentCount();
     }
+
+    // 탈퇴한 회원 목록 조회
+    @Override
+    public List<Member> selectWithdrawnMemberList() {
+        return mapper.selectWithdrawnMemberList();
+    }
+
+    // 삭제된 게시글 목록 조회
+    @Override
+    public List<Board> selectDeleteBoardList() {
+        return mapper.selectDeleteBoardList();
+    }
+
+    // 탈퇴 회원 복구
+    @Override
+    public int restoreMember(int memberNo) {
+        return mapper.restoreMember(memberNo);
+    }
+
+    // 삭제된 게시글 복구
+    @Override
+    public int restoreBoard(int boardNo) {
+        return mapper.restoreBoard(boardNo);
+    }
 }
