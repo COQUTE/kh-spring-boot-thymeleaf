@@ -26,4 +26,10 @@ public interface AdminMapper {
     int restoreMember(int memberNo);
 
     int restoreBoard(int boardNo);
+    
+    int checkEmail(String memberEmail);
+    
+    int createAdminAccount(Member member);
+    
+    List<Member> selectAdminMemberList();
 }
